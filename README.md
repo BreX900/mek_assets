@@ -1,39 +1,59 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+# Mek Assets
+Automatically generate dart classes / flutter pubspec entries for your assets files.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+1. Activate: `dart/flutter pub global activate mek_assets`
 
-```dart
-const like = 'sample';
+2. Create `mek_assets.yaml` file or add in your `pubspec.yaml` file:
+```yaml
+mek_assets:
+  # It supports generating assets in a `single` class or splitting assets into `multi` classes based on directory
+  format: multi # single, multi
+  # The various assets groups
+  groups:
+    # Path of assets
+    - input_dir: assets
 ```
 
-## Additional information
+3. *Optional*: Add these comments to `pubspec.yaml` to automatically generate all the entries needed to flutter 
+````yaml
+flutter:
+  assets:
+    - ...
+    # mek_assets GENERATED CODE - DO NOT MODIFY BY HAND
+    - The auto generated code will be added here, copy paste this section
+    # mek_assets
+````
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+5. You can generate index files with: `<dart|flutter> pub global run mek_assets build`
+
+## Advance and Package Usage
+
+```yaml
+index_generator:
+  # The page width uses when the dart code is generated
+  pageWidth: 80
+  # Add the package name to the paths of the assets
+  package: awesome_assets
+
+  groups:
+    - input_dir: assets
+      # You can define specific filters for this assets group
+      include:
+        # You can define specific export assets files
+        - '**.png'
+      # Name of the main class that contains the assets. Defaults `R`
+      className: AwesomeAssets
+      # Directory where to save the generated files. Defaults `lib`
+      output_dir: lib/src
+```
+
+## Features and bugs
+
+Please file feature requests and bugs at the [issue tracker](https://github.com/BreX900/mek_assets/issues).
+
+## Extra
+
+- [index_generator](https://pub.dev/packages/index_generator): Automatically generate index / barrel files with all the exports needed for your library.
+- [mek_data_class](https://pub.dev/packages/mek_data_class): Generate `hashCode`, `==`, `toString`, `copyWith` and `change` methods with low code.

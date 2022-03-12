@@ -1,4 +1,4 @@
-import 'package:mek_generate_assets/mek_generate_assets.dart';
+// ignore: implementation_imports
 import 'package:mime/src/default_extension_map.dart';
 
 final mimeMap = defaultExtensionMap;
@@ -28,20 +28,4 @@ class Mime {
 
     return extension == type;
   }
-}
-
-void main() {
-  final options = Options(
-    pageWidth: 80,
-    groups: [
-      GroupOptions(
-        paths: ['assets/**'],
-        className: 'R',
-        types: ['image/*'],
-        outputDir: 'lib',
-      ),
-    ],
-  );
-
-  generateCode(options);
 }
