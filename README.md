@@ -53,7 +53,7 @@ index_generator:
 
 Please file feature requests and bugs at the [issue tracker](https://github.com/BreX900/mek_assets/issues).
 
-## Extra
+# Extra
 
 - [index_generator](https://pub.dev/packages/index_generator): Automatically generate index / barrel files with all the exports needed for your library.
 - [mek_data_class](https://pub.dev/packages/mek_data_class): Generate `hashCode`, `==`, `toString`, `copyWith` and `change` methods with low code.
