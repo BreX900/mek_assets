@@ -2,7 +2,6 @@ import 'package:code_builder/code_builder.dart';
 import 'package:mek_assets/src/build_group/build_group_node.dart';
 import 'package:mek_assets/src/settings/settings.dart';
 import 'package:mek_assets/src/utils.dart';
-import 'package:path/path.dart' as pt;
 import 'package:pure_extensions/pure_extensions.dart';
 
 class BuildGroupClasses {
@@ -15,7 +14,7 @@ class BuildGroupClasses {
   List<Class> call(GroupSettings groupSettings, Node root) {
     List<Class> visitor(Node node, [bool isRoot = false]) {
       return [
-        _buildClass(groupSettings, isRoot, node),
+        _buildClass(groupSettings, isRoot, isRoot, node),
         ...node.children.expand(visitor),
       ];
     }
@@ -23,14 +22,17 @@ class BuildGroupClasses {
     return visitor(root, true);
   }
 
-  Class _buildClass(GroupSettings groupSettings, bool isStatic, Node node) {
+  Class _buildClass(GroupSettings groupSettings, bool isStatic, bool isPublic, Node node) {
+    final className = groupSettings.resolveClassName(settings, node.dirName);
+
     return Class((b) => b
-      ..name = node.dirName.pascalCase
+      ..name = _visibleClass(className, isPublic)
       ..constructors.add(Constructor((b) => b
         ..constant = true
         ..name = '_'))
       ..fields.addAll(node.children.map((child) {
-        final reference = Reference(child.dirName.pascalCase);
+        final className = groupSettings.resolveClassName(settings, child.dirName);
+        final reference = Reference(_visibleClass(className, false));
 
         return Field((b) => b
           ..static = isStatic
@@ -41,15 +43,17 @@ class BuildGroupClasses {
               ? reference.newInstanceNamed('_', []).code
               : reference.constInstanceNamed('_', []).code);
       }))
-      ..fields.addAll(node.filePaths.map((filePath) {
+      ..fields.addAll(node.files.generateIterable((fileName, filePath) {
         final assetPath = Utils.encodeAssetPath(settings.package, groupSettings.inputDir, filePath);
 
         return Field((b) => b
           ..static = isStatic
           ..modifier = isStatic ? FieldModifier.constant : FieldModifier.final$
           ..type = const Reference('String')
-          ..name = pt.basenameWithoutExtension(filePath).camelCase
+          ..name = fileName
           ..assignment = literalString(assetPath).code);
       })));
   }
+
+  String _visibleClass(String className, bool isPublic) => '${isPublic ? '' : '_'}$className';
 }

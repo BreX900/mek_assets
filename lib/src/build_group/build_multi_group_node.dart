@@ -11,32 +11,16 @@ class BuildMultiGroupNode extends BuildGroupNode {
   }) : super(settings: options, fileSystem: fileSystem);
 
   @override
-  Node call(GroupSettings groupSettings, Iterable<String> filePaths) {
-    final root = Node(dirName: groupSettings.resolveClassName(settings));
+  List<Node> call(GroupSettings groupSettings, Iterable<String> filePaths) {
+    final nodes = filePaths.groupListsBy((element) => pt.dirname(element));
 
-    for (final filePath in filePaths) {
-      final segments = pt.split(filePath);
-      var node = root;
-      for (var i = 0; i < segments.length; i++) {
-        final segment = segments[i];
-
-        if ((i + 1) == segments.length) {
-          node.filePaths.add(filePath);
-          continue;
-        }
-
-        final child = node.children.firstWhereOrNull((node) => node.dirName == segment);
-        if (child == null) {
-          final newChild = Node(dirName: segment);
-          node.children.add(newChild);
-          node = newChild;
-          continue;
-        }
-
-        node = child;
-      }
-    }
-
-    return root;
+    return nodes.generateIterable((dirName, filePaths) {
+      return Node(
+        dirName: dirName,
+        files: filePaths.generateMap((filePath) {
+          return MapEntry(pt.basenameWithoutExtension(filePath), filePath);
+        }),
+      );
+    }).toList();
   }
 }

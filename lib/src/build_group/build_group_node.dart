@@ -13,20 +13,22 @@ abstract class BuildGroupNode {
     required this.fileSystem,
   });
 
-  Node call(GroupSettings groupSettings, Iterable<String> filePaths);
+  List<Node> call(GroupSettings groupSettings, Iterable<String> filePaths);
 }
 
 @DataClass()
 class Node with _$Node {
   final String dirName;
-  final List<String> filePaths;
+
+  /// <FileName, FilePath>
+  final Map<String, String> files;
   final List<Node> children;
 
   Node({
-    required this.dirName,
-    List<String>? filePaths,
+    this.dirName = '.',
+    Map<String, String>? files,
     List<Node>? children,
-  })  : filePaths = filePaths ?? [],
+  })  : files = files ?? {},
         children = children ?? [];
 
   R visit<R, T>(R Function(Node node, [T? context]) visitor) {

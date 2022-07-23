@@ -42,6 +42,7 @@ Settings _$SettingsFromJson(Map json) => $checkedCreate(
 const _$BuildFormatEnumMap = {
   BuildFormat.single: 'single',
   BuildFormat.multi: 'multi',
+  BuildFormat.tree: 'tree',
 };
 
 GroupSettings _$GroupSettingsFromJson(Map json) => $checkedCreate(
@@ -50,7 +51,9 @@ GroupSettings _$GroupSettingsFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         final val = GroupSettings(
           inputDir: $checkedConvert('input_dir', (v) => v as String),
-          className: $checkedConvert('class_name', (v) => v as String? ?? 'R'),
+          prefixClassName:
+              $checkedConvert('prefix_class_name', (v) => v as String?),
+          className: $checkedConvert('class_name', (v) => v as String?),
           include: $checkedConvert(
               'include',
               (v) =>
@@ -58,12 +61,16 @@ GroupSettings _$GroupSettingsFromJson(Map json) => $checkedCreate(
                   const ['**']),
           outputDir:
               $checkedConvert('output_dir', (v) => v as String? ?? 'lib'),
+          outputFileName:
+              $checkedConvert('output_file_name', (v) => v as String?),
         );
         return val;
       },
       fieldKeyMap: const {
         'inputDir': 'input_dir',
+        'prefixClassName': 'prefix_class_name',
         'className': 'class_name',
-        'outputDir': 'output_dir'
+        'outputDir': 'output_dir',
+        'outputFileName': 'output_file_name'
       },
     );

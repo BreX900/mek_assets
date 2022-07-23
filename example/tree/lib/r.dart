@@ -2,16 +2,18 @@
 
 // ignore_for_file: library_private_types_in_public_api
 
-class RImages {
-  const RImages._();
+class R {
+  const R._();
 
-  static const String shieldHero = 'assets/images/shieldHero.jpg';
-}
-
-class RAssets {
-  const RAssets._();
+  static const _Images images = _Images._();
 
   static const String mainImage = 'assets/mainImage.jpg';
 
   static const String response = 'assets/response.json';
+}
+
+class _Images {
+  const _Images._();
+
+  final String shieldHero = 'assets/images/shieldHero.jpg';
 }

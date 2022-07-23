@@ -8,12 +8,14 @@ Automatically generate dart classes / flutter pubspec entries for your assets fi
 2. Create `mek_assets.yaml` file or add in your `pubspec.yaml` file:
 ```yaml
 mek_assets:
-  # It supports generating assets in a `single` class or splitting assets into `multi` classes based on directory
-  format: multi # single, multi
+  # It supports generating assets in a `single` class, into `multi` classes based on directory or `tree` classes structure based on directory
+  format: multi # single, multi, tree
   # The various assets groups
   groups:
     # Path of assets
     - input_dir: assets
+      prefix_class_name: R
+      output_file_name: r
 ```
 
 3. *Optional*: Add these comments to `pubspec.yaml` to automatically generate all the entries needed to flutter 
@@ -26,7 +28,7 @@ flutter:
     # mek_assets
 ````
 
-5. You can generate index files with: `<dart|flutter> pub global run mek_assets build`
+4. You can generate index files with: `<dart|flutter> pub global run mek_assets build`
 
 ## Advance and Package Usage
 
@@ -43,10 +45,28 @@ index_generator:
       include:
         # You can define specific export assets files
         - '**.png'
-      # Name of the main class that contains the assets. Defaults `R`
-      className: AwesomeAssets
+      # Prefix of the classes that contains the assets. Defaults nothing.
+      prefix_class_name: R
+      # Name of the main class that contains the assets. Defaults input directory name.
+      class_name: AwesomeAssets
       # Directory where to save the generated files. Defaults `lib`
       output_dir: lib/src
+      # Generated file name. Defaults input directory name 
+      output_file_name: 'r'
+```
+
+## Recommended format settings
+
+### Single / Tree
+```yaml
+      class_name: R
+      output_file_name: r
+```
+
+### Multi
+```yaml
+      prefix_class_name: R
+      output_file_name: r
 ```
 
 ## Features and bugs

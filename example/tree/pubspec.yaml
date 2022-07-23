@@ -1,4 +1,4 @@
-name: mek_assets_single_example
+name: mek_assets_multi_example
 description: Automatically generate dart classes / flutter pubspec entries for your assets files.
 version: 0.0.1
 
@@ -10,13 +10,12 @@ flutter:
     # mek_assets GENERATED CODE - DO NOT MODIFY BY HAND
     - assets/images/shieldHero.jpg
     - assets/mainImage.jpg
+    - assets/response.json
     # mek_assets
 
 mek_assets:
-  format: single
+  format: tree
   groups:
     - input_dir: assets
       class_name: R
-      include:
-        - '**.jpg'
       output_file_name: r
