@@ -5,7 +5,7 @@
 class R {
   const R._();
 
-  static const String imagesShieldHero = 'assets/images/shieldHero.jpg';
+  static const String imagesShieldHero = 'assets/images/shield_hero.jpg';
 
-  static const String mainImage = 'assets/mainImage.jpg';
+  static const String mainImage = 'assets/main_image.jpg';
 }

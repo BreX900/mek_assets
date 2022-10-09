@@ -5,13 +5,13 @@
 class RImages {
   const RImages._();
 
-  static const String shieldHero = 'assets/images/shieldHero.jpg';
+  static const String shieldHero = 'assets/images/shield_hero.jpg';
 }
 
 class RAssets {
   const RAssets._();
 
-  static const String mainImage = 'assets/mainImage.jpg';
+  static const String mainImage = 'assets/main_image.jpg';
 
   static const String response = 'assets/response.json';
 }

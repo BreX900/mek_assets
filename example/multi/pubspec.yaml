@@ -8,8 +8,8 @@ environment:
 flutter:
   assets:
     # mek_assets GENERATED CODE - DO NOT MODIFY BY HAND
-    - assets/images/shieldHero.jpg
-    - assets/mainImage.jpg
+    - assets/images/shield_hero.jpg
+    - assets/main_image.jpg
     - assets/response.json
     # mek_assets
 

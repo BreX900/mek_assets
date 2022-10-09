@@ -6,7 +6,7 @@ part of 'build_group_node.dart';
 // DataClassGenerator
 // **************************************************************************
 
-// ignore_for_file: annotate_overrides
+// ignore_for_file: annotate_overrides, unused_element
 
 mixin _$Node {
   Node get _self => this as Node;

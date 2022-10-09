@@ -7,7 +7,7 @@ class R {
 
   static const _Images images = _Images._();
 
-  static const String mainImage = 'assets/mainImage.jpg';
+  static const String mainImage = 'assets/main_image.jpg';
 
   static const String response = 'assets/response.json';
 }
@@ -15,5 +15,5 @@ class R {
 class _Images {
   const _Images._();
 
-  final String shieldHero = 'assets/images/shieldHero.jpg';
+  final String shieldHero = 'assets/images/shield_hero.jpg';
 }

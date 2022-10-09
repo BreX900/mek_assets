@@ -18,7 +18,7 @@ class BuildMultiGroupNode extends BuildGroupNode {
       return Node(
         dirName: dirName,
         files: filePaths.generateMap((filePath) {
-          return MapEntry(pt.basenameWithoutExtension(filePath), filePath);
+          return MapEntry(pt.basenameWithoutExtension(filePath).camelCase, filePath);
         }),
       );
     }).toList();

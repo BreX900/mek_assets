@@ -14,7 +14,7 @@ void main() async {
     // print(res.stdout);
     final result = await Process.run(
       'dart',
-      ['pub', 'global', 'run', 'mek_assets', 'build'],
+      ['run', '../../bin/mek_assets.dart', 'build'],
       workingDirectory: join('example', folder),
     );
     return 'Format: $folder\n${result.stdout}\n${result.stderr}';

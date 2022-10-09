@@ -1,3 +1,6 @@
+## 0.1.1
+- Fix incorrect multi format output
+
 ## 0.1.0
 - Fix incorrect `format` mapping for format file
 - Fix generation of fields names on single format file
