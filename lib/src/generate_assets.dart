@@ -14,7 +14,7 @@ import 'package:path/path.dart' as pt;
 
 void generateCode(Settings settings) {
   final fileSystem = LocalFileSystem();
-  final assets = <String>[];
+  var assets = <String>[];
   final buildGroup = settings.format.fold(single: () {
     return BuildSingleGroupNode(
       fileSystem: LocalFileSystem(),
@@ -38,21 +38,22 @@ void generateCode(Settings settings) {
   for (final groupSettings in settings.groups) {
     final outputFile = fileSystem.file(groupSettings.resolveOutputFile(settings));
 
-    final filePaths = groupSettings.include.expand((glob) {
+    var filePaths = groupSettings.include.expand((glob) {
       return Glob(pt.posix.join(groupSettings.inputDir, glob)).listFileSystemSync(fileSystem);
     }).where((e) {
       return e.statSync().type == FileSystemEntityType.file && !e.basename.startsWith('.');
     }).map((file) {
       return file.path.substring(groupSettings.inputDir.length + 3); // ./<PATH>/
     }).toList();
-
-    assets.addAll(filePaths.map((path) => Utils.encodePosixPath(groupSettings.inputDir, path)));
-    print(assets);
+    filePaths = [...filePaths]..sort();
 
     if (filePaths.isEmpty) {
       if (outputFile.existsSync()) outputFile.deleteSync();
       continue;
     }
+
+    assets.addAll(filePaths.map((path) => Utils.encodePosixPath(groupSettings.inputDir, path)));
+    print(assets);
 
     final roots = buildGroup(groupSettings, filePaths);
     final classes = roots.expand((root) => buildClasses(groupSettings, root));
@@ -75,6 +76,7 @@ void generateCode(Settings settings) {
     final pubspecContent = pubspecFile.readAsStringSync();
 
     try {
+      assets = [...assets]..sort();
       final content = Utils.writeInTags(pubspecContent, 'mek_assets', () {
         return assets.map((e) => '    - $e\n').join();
       });

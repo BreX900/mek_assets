@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:file/file.dart';
 import 'package:mek_assets/src/build_group/build_group_node.dart';
 import 'package:mek_assets/src/settings/settings.dart';
+import 'package:mek_assets/src/utils.dart';
 import 'package:path/path.dart' as pt;
-import 'package:pure_extensions/pure_extensions.dart';
+import 'package:recase/recase.dart';
 
 class BuildMultiGroupNode extends BuildGroupNode {
   BuildMultiGroupNode({
@@ -14,12 +16,13 @@ class BuildMultiGroupNode extends BuildGroupNode {
   List<Node> call(GroupSettings groupSettings, Iterable<String> filePaths) {
     final nodes = filePaths.groupListsBy((element) => pt.dirname(element));
 
-    return nodes.generateIterable((dirName, filePaths) {
+    return nodes.mapEntries((dirName, filePaths) {
       return Node(
         dirName: dirName,
-        files: filePaths.generateMap((filePath) {
-          return MapEntry(pt.basenameWithoutExtension(filePath).camelCase, filePath);
-        }),
+        files: {
+          for (final filePath in filePaths)
+            pt.basenameWithoutExtension(filePath).camelCase: filePath,
+        },
       );
     }).toList();
   }

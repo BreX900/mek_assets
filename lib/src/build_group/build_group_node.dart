@@ -1,8 +1,5 @@
 import 'package:file/file.dart';
 import 'package:mek_assets/src/settings/settings.dart';
-import 'package:mek_data_class/mek_data_class.dart';
-
-part 'build_group_node.g.dart';
 
 abstract class BuildGroupNode {
   final Settings settings;
@@ -16,8 +13,7 @@ abstract class BuildGroupNode {
   List<Node> call(GroupSettings groupSettings, Iterable<String> filePaths);
 }
 
-@DataClass()
-class Node with _$Node {
+class Node {
   final String dirName;
 
   /// <FileName, FilePath>
@@ -31,7 +27,5 @@ class Node with _$Node {
   })  : files = files ?? {},
         children = children ?? [];
 
-  R visit<R, T>(R Function(Node node, [T? context]) visitor) {
-    return visitor(this);
-  }
+  R visit<R, T>(R Function(Node node, [T? context]) visitor) => visitor(this);
 }

@@ -1,8 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:file/file.dart';
 import 'package:mek_assets/src/build_group/build_group_node.dart';
 import 'package:mek_assets/src/settings/settings.dart';
 import 'package:path/path.dart' as pt;
-import 'package:pure_extensions/pure_extensions.dart';
+import 'package:recase/recase.dart';
 
 class BuildTreeGroupNode extends BuildGroupNode {
   BuildTreeGroupNode({

@@ -2,7 +2,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:mek_assets/src/build_group/build_group_node.dart';
 import 'package:mek_assets/src/settings/settings.dart';
 import 'package:mek_assets/src/utils.dart';
-import 'package:pure_extensions/pure_extensions.dart';
+import 'package:recase/recase.dart';
 
 class BuildGroupClasses {
   final Settings settings;
@@ -43,7 +43,7 @@ class BuildGroupClasses {
               ? reference.newInstanceNamed('_', []).code
               : reference.constInstanceNamed('_', []).code);
       }))
-      ..fields.addAll(node.files.generateIterable((fileName, filePath) {
+      ..fields.addAll(node.files.mapEntries((fileName, filePath) {
         final assetPath = Utils.encodeAssetPath(settings.package, groupSettings.inputDir, filePath);
 
         return Field((b) => b

@@ -35,7 +35,7 @@ flutter:
 ```yaml
 index_generator:
   # The page width uses when the dart code is generated
-  pageWidth: 80
+  page_width: 80
   # Add the package name to the paths of the assets
   package: awesome_assets
 

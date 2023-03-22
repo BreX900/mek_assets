@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as pt;
-import 'package:pure_extensions/pure_extensions.dart';
+import 'package:recase/recase.dart';
 
 part 'settings.g.dart';
 

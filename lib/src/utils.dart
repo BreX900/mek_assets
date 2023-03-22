@@ -76,3 +76,11 @@ class InvalidTagsException {
     return buffer.toString();
   }
 }
+
+extension MapX<K, V> on Map<K, V> {
+  Iterable<R> mapEntries<R>(R Function(K key, V value) mapper) sync* {
+    for (final entry in entries) {
+      yield mapper(entry.key, entry.value);
+    }
+  }
+}

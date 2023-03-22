@@ -1,3 +1,8 @@
+## 1.0.0
+- feat: stable release
+- fix: typo in README.md
+- fix: outputs of paths/fields is not sorted
+
 ## 0.1.1
 - Fix incorrect multi format output
 
