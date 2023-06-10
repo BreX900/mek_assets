@@ -14,7 +14,7 @@ final argsParser = ArgParser()
 
 final toolBox = ToolBox(name: 'mek_assets');
 
-void main(List<String> rawArgs) {
+void main(List<String> rawArgs) async {
   final args = argsParser.parse(rawArgs);
   final settingsPath = args['settings'] as String?;
   final canVerbose = args['verbose'] as bool;
@@ -36,7 +36,7 @@ void main(List<String> rawArgs) {
   final yamlSettings = ToolBox.loadYaml(settingsFile, YamlSettings.fromJson);
   final settings = yamlSettings.mekAssets;
 
-  generateCode(settings);
+  await generateCode(settings);
 }
 
 class ToolBox {

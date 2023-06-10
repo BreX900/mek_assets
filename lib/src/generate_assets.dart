@@ -12,7 +12,7 @@ import 'package:mek_assets/src/settings/settings.dart';
 import 'package:mek_assets/src/utils.dart';
 import 'package:path/path.dart' as pt;
 
-void generateCode(Settings settings) {
+Future<void> generateCode(Settings settings) async {
   final fileSystem = LocalFileSystem();
   var assets = <String>[];
   final buildGroup = settings.format.fold(single: () {
@@ -37,11 +37,16 @@ void generateCode(Settings settings) {
 
   for (final groupSettings in settings.groups) {
     final outputFile = fileSystem.file(groupSettings.resolveOutputFile(settings));
+    final excludeGlobs =
+        groupSettings.exclude.map((e) => Glob(pt.posix.join(groupSettings.inputDir, e)));
 
-    var filePaths = groupSettings.include.expand((glob) {
-      return Glob(pt.posix.join(groupSettings.inputDir, glob)).listFileSystemSync(fileSystem);
-    }).where((e) {
-      return e.statSync().type == FileSystemEntityType.file && !e.basename.startsWith('.');
+    var filePaths = await Utils.merge(groupSettings.include.map((glob) {
+      return Glob(pt.posix.join(groupSettings.inputDir, glob)).listFileSystem(fileSystem);
+    })).where((file) {
+      if (file.statSync().type != FileSystemEntityType.file) return false;
+      if (file.basename.startsWith('.')) return false;
+      if (excludeGlobs.any((e) => e.matches(file.path))) return false;
+      return true;
     }).map((file) {
       return file.path.substring(groupSettings.inputDir.length + 3); // ./<PATH>/
     }).toList();

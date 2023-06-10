@@ -41,14 +41,18 @@ index_generator:
 
   groups:
     - input_dir: assets
-      # You can define specific filters for this assets group
+      # Define what elements to include in the group, use Glob format
       include:
         # You can define specific export assets files
         - '**.png'
+      # Define what elements to exlude in the group, use Glob format
+      exclude: [ '**.svg' ]
       # Prefix of the classes that contains the assets. Defaults nothing.
       prefix_class_name: R
       # Name of the main class that contains the assets. Defaults input directory name.
       class_name: AwesomeAssets
+      # Create a map of all items contained in the group
+      create_map_files: true
       # Directory where to save the generated files. Defaults `lib`
       output_dir: lib/src
       # Generated file name. Defaults input directory name 

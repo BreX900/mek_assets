@@ -9,7 +9,6 @@ flutter:
   assets:
     # mek_assets GENERATED CODE - DO NOT MODIFY BY HAND
     - assets/images/shield_hero.jpg
-    - assets/main_image.jpg
     - assets/response.json
     # mek_assets
 
@@ -19,3 +18,5 @@ mek_assets:
     - input_dir: assets
       prefix_class_name: R
       output_file_name: r
+      exclude:
+        - '*.jpg'

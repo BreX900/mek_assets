@@ -18,4 +18,5 @@ mek_assets:
   groups:
     - input_dir: assets
       class_name: R
+      create_map_files: true
       output_file_name: r

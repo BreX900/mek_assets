@@ -59,6 +59,13 @@ GroupSettings _$GroupSettingsFromJson(Map json) => $checkedCreate(
               (v) =>
                   (v as List<dynamic>?)?.map((e) => e as String).toList() ??
                   const ['**']),
+          exclude: $checkedConvert(
+              'exclude',
+              (v) =>
+                  (v as List<dynamic>?)?.map((e) => e as String).toList() ??
+                  const []),
+          createMapFiles:
+              $checkedConvert('create_map_files', (v) => v as bool? ?? false),
           outputDir:
               $checkedConvert('output_dir', (v) => v as String? ?? 'lib'),
           outputFileName:
@@ -70,6 +77,7 @@ GroupSettings _$GroupSettingsFromJson(Map json) => $checkedCreate(
         'inputDir': 'input_dir',
         'prefixClassName': 'prefix_class_name',
         'className': 'class_name',
+        'createMapFiles': 'create_map_files',
         'outputDir': 'output_dir',
         'outputFileName': 'output_file_name'
       },

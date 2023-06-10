@@ -25,6 +25,11 @@ class BuildGroupClasses {
   Class _buildClass(GroupSettings groupSettings, bool isStatic, bool isPublic, Node node) {
     final className = groupSettings.resolveClassName(settings, node.dirName);
 
+    final files = node.files.map((fileName, filePath) {
+      final assetPath = Utils.encodeAssetPath(settings.package, groupSettings.inputDir, filePath);
+      return MapEntry(fileName, assetPath);
+    });
+
     return Class((b) => b
       ..name = _visibleClass(className, isPublic)
       ..constructors.add(Constructor((b) => b
@@ -43,16 +48,25 @@ class BuildGroupClasses {
               ? reference.newInstanceNamed('_', []).code
               : reference.constInstanceNamed('_', []).code);
       }))
-      ..fields.addAll(node.files.mapEntries((fileName, filePath) {
-        final assetPath = Utils.encodeAssetPath(settings.package, groupSettings.inputDir, filePath);
-
+      ..fields.addAll(files.mapEntries((fileName, assetPath) {
         return Field((b) => b
           ..static = isStatic
           ..modifier = isStatic ? FieldModifier.constant : FieldModifier.final$
           ..type = const Reference('String')
           ..name = fileName
           ..assignment = literalString(assetPath).code);
-      })));
+      }))
+      ..fields.addAll([
+        if (groupSettings.createMapFiles)
+          Field((b) => b
+            ..static = true
+            ..modifier = FieldModifier.constant
+            ..type = TypeReference((b) => b
+              ..symbol = 'Map'
+              ..types.addAll([const Reference('String'), const Reference('String')]))
+            ..name = '\$files'
+            ..assignment = literalMap(files).code)
+      ]));
   }
 
   String _visibleClass(String className, bool isPublic) => '${isPublic ? '' : '_'}$className';

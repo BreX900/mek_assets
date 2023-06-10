@@ -11,7 +11,5 @@ class RImages {
 class RAssets {
   const RAssets._();
 
-  static const String mainImage = 'assets/main_image.jpg';
-
   static const String response = 'assets/response.json';
 }

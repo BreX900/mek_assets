@@ -39,8 +39,10 @@ class Settings {
 class GroupSettings {
   final String inputDir;
   final List<String> include;
+  final List<String> exclude;
   final String? prefixClassName;
   final String? className;
+  final bool createMapFiles;
   final String outputDir;
   final String? outputFileName;
 
@@ -49,6 +51,8 @@ class GroupSettings {
     this.prefixClassName,
     this.className,
     this.include = const ['**'],
+    this.exclude = const [],
+    this.createMapFiles = false,
     this.outputDir = 'lib',
     this.outputFileName,
   });
@@ -58,6 +62,8 @@ class GroupSettings {
     String? prefixClassName,
     String? className,
     List<String> include = const ['**'],
+    List<String> exclude = const [],
+    bool createMapFiles = false,
     String outputDir = 'lib',
     String? outputFileName,
   }) {
@@ -66,6 +72,8 @@ class GroupSettings {
       prefixClassName: prefixClassName,
       className: className,
       include: include.isEmpty ? const ['**'] : include,
+      exclude: exclude,
+      createMapFiles: createMapFiles,
       outputDir: outputDir,
       outputFileName: outputFileName,
     );

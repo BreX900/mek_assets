@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:cli_util/cli_logging.dart';
@@ -47,6 +48,28 @@ class Utils {
     final next = content.substring(end);
 
     return '$previous${innerContent()}$next';
+  }
+
+  static Stream<T> merge<T>(Iterable<Stream<T>> streams) {
+    return Stream.multi((controller) {
+      var total = 0;
+      var count = 0;
+
+      void onDone() {
+        count += 1;
+        if (count < total) return;
+        controller.close();
+      }
+
+      for (final stream in streams) {
+        total += 1;
+        stream.listen(
+          controller.addSync,
+          onError: controller.addErrorSync,
+          onDone: onDone,
+        );
+      }
+    });
   }
 }
 
