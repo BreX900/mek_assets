@@ -28,14 +28,14 @@ class Utils {
   }
 
   static String? writeInTags(String content, String tag, String Function() innerContent) {
-    final startWildcardRegExp =
-        RegExp(r'([ ]{4}# tag GENERATED CODE - DO NOT MODIFY BY HAND\n)'.replaceFirst('tag', tag));
-    final endWildcardRegExp = RegExp(r'([ ]{4}# tag(\n|$))'.replaceFirst('tag', tag));
+    final startWildcardRegExp = RegExp(
+        r'([ ]{4}# tag GENERATED CODE - DO NOT MODIFY BY HAND\r?\n)'.replaceFirst('tag', tag));
+    final endWildcardRegExp = RegExp(r'([ ]{4}# tag((\r?\n)|$))'.replaceFirst('tag', tag));
 
     final startWildcardMatches = startWildcardRegExp.allMatches(content).toList();
     final endWildcardMatches = endWildcardRegExp.allMatches(content).toList();
 
-    if (startWildcardMatches.length > 1 || endWildcardMatches.length > 1) {
+    if (startWildcardMatches.length != 1 || endWildcardMatches.length != 1) {
       throw InvalidTagsException(
         startWildcardCount: startWildcardMatches.length,
         endWildcardCount: endWildcardMatches.length,

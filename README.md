@@ -33,7 +33,7 @@ flutter:
 ## Advance and Package Usage
 
 ```yaml
-index_generator:
+mek_assets:
   # The page width uses when the dart code is generated
   page_width: 80
   # Add the package name to the paths of the assets

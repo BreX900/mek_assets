@@ -59,8 +59,8 @@ class BuildGroupClasses {
       ..fields.addAll([
         if (groupSettings.createMapFiles)
           Field((b) => b
-            ..static = true
-            ..modifier = FieldModifier.constant
+            ..static = isStatic
+            ..modifier = isStatic ? FieldModifier.constant : FieldModifier.final$
             ..type = TypeReference((b) => b
               ..symbol = 'Map'
               ..types.addAll([const Reference('String'), const Reference('String')]))

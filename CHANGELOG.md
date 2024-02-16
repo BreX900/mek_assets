@@ -1,3 +1,6 @@
+## 1.1.1
+- fix: fixes regexp for windows system
+
 ## 1.1.0
 - feat: Can exclude files and folders from generation, pass the `exclude` option
 - feat: Can generate map files, pass the `create_map_files` option to `true`

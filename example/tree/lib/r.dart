@@ -22,7 +22,7 @@ class _Images {
 
   final String shieldHero = 'assets/images/shield_hero.jpg';
 
-  static const Map<String, String> $files = {
+  final Map<String, String> $files = {
     'shieldHero': 'assets/images/shield_hero.jpg'
   };
 }
