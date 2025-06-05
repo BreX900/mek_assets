@@ -1,6 +1,12 @@
 targets:
   $default:
     builders:
+      source_gen:combining_builder:
+        options:
+          ignore_for_file:
+            - cast_nullable_to_non_nullable
+            - unnecessary_cast
+
       json_serializable:
         options:
           # Options configure how source code is generated for every

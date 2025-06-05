@@ -1,3 +1,7 @@
+## 2.0.0
+- feat!: automatically generate Dart classes with resources based on Flutter `assets` property
+- build: require dart `3.5`
+
 ## 1.1.1
 - fix: fixes regexp for windows system
 

@@ -1,76 +1,70 @@
 # Mek Assets
-Automatically generate dart classes / flutter pubspec entries for your assets files.
+Automatically generate dart classes from pubspec.yaml `assets` field entries.
 
 ## Usage
 
 1. Activate: `dart/flutter pub global activate mek_assets`
 
-2. Create `mek_assets.yaml` file or add in your `pubspec.yaml` file:
-```yaml
-mek_assets:
-  # It supports generating assets in a `single` class, into `multi` classes based on directory or `tree` classes structure based on directory
-  format: multi # single, multi, tree
-  # The various assets groups
-  groups:
-    # Path of assets
-    - input_dir: assets
-      prefix_class_name: R
-      output_file_name: r
-```
+2. You can generate libraries files with: `<dart|flutter> pub global run mek_assets`
 
-3. *Optional*: Add these comments to `pubspec.yaml` to automatically generate all the entries needed to flutter 
-````yaml
+### Example
+
+See [minimal example](https://github.com/BreX900/mek_assets/tree/master/example/default/pubspec.yaml)
+
+The [pubspec.yaml](https://github.com/BreX900/mek_assets/tree/master/example/default/pubspec.yaml) file
+```yaml
+name: example
+description: Automatically generate dart classes / flutter pubspec entries for your assets files.
+version: 0.0.1
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
 flutter:
   assets:
-    - ...
-    # mek_assets GENERATED CODE - DO NOT MODIFY BY HAND
-    - The auto generated code will be added here, copy paste this section
-    # mek_assets
-````
+    - assets/images/
+    - assets/main_image.jpg
+    - assets/response.json
+```
 
-4. You can generate index files with: `<dart|flutter> pub global run mek_assets build`
+Run `mek_assets` to generate the `Assets` and `Images` class
+
+[lib/assets.dart](https://github.com/BreX900/mek_assets/tree/master/example/default/lib/assets.dart)
+```dart
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+abstract final class Assets {
+  static const String assetsMainImageJpg = 'assets/main_image.jpg';
+  
+  static const String assetsResponseJson = 'assets/response.json';
+}
+
+```
+
+[lib/images.dart](https://github.com/BreX900/mek_assets/tree/master/example/default/lib/images.dart)
+```dart
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+abstract final class Images {
+  static const String shieldHero = 'assets/images/shield_hero.jpg';
+}
+
+```
 
 ## Advance and Package Usage
 
 ```yaml
 mek_assets:
-  # The page width uses when the dart code is generated
-  page_width: 80
-  # Add the package name to the paths of the assets
-  package: awesome_assets
+  # Directory where to save the generated files. Defaults `lib`
+  output_directory: lib/assets
+  # Name of the main class that contains the single assets. Defaults is "Assets" name.
+  # You can pass `false` to not create a class that contains the individual files.
+  output_files_class: Assets
 
-  groups:
-    - input_dir: assets
-      # Define what elements to include in the group, use Glob format
-      include:
-        # You can define specific export assets files
-        - '**.png'
-      # Define what elements to exlude in the group, use Glob format
-      exclude: [ '**.svg' ]
-      # Prefix of the classes that contains the assets. Defaults nothing.
-      prefix_class_name: R
-      # Name of the main class that contains the assets. Defaults input directory name.
-      class_name: AwesomeAssets
-      # Create a map of all items contained in the group
-      create_map_files: true
-      # Directory where to save the generated files. Defaults `lib`
-      output_dir: lib/src
-      # Generated file name. Defaults input directory name 
-      output_file_name: 'r'
-```
-
-## Recommended format settings
-
-### Single / Tree
-```yaml
-      class_name: R
-      output_file_name: r
-```
-
-### Multi
-```yaml
-      prefix_class_name: R
-      output_file_name: r
+  assets:
+    # Name of the class that contains the assets. Defaults is directory name.
+    <ASSET_PATH>: Images
+    # You can disable generation with `false` value
+    <ASSET_PATH_IGNORED>: false
 ```
 
 ## Features and bugs

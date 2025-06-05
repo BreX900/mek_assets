@@ -1,0 +1,22 @@
+name: example
+description: Automatically generate dart classes / flutter pubspec entries for your assets files.
+version: 0.0.1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+scripts:
+  generate-assets: dart run ../../bin/mek_assets.dart
+
+flutter:
+  assets:
+    - assets/images/
+    - assets/json/
+    - assets/response.json
+
+mek_assets:
+  output_directory: lib/assets
+  output_files_class: R
+  assets:
+    assets/images/: RandomImages
+    assets/json/: false

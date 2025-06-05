@@ -1,72 +1,50 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
-import 'package:args/args.dart';
-import 'package:checked_yaml/checked_yaml.dart';
-import 'package:cli_util/cli_logging.dart';
-import 'package:mek_assets/mek_assets.dart';
-import 'package:mek_assets/src/utils.dart';
+import 'package:cli_util/cli_logging.dart' show Ansi;
+import 'package:mek_assets/src/build_libraries.dart';
+import 'package:mek_assets/src/data/dto.dart';
+import 'package:mek_assets/src/data/fatal_error.dart';
+import 'package:mek_assets/src/decode_yaml_file.dart';
+import 'package:mek_assets/src/find_entities.dart';
+import 'package:mek_assets/src/write_libraries.dart';
 
-final argsParser = ArgParser()
-  ..addOption('settings', abbr: 's', valueHelp: 'Define a yaml file path.')
-  ..addFlag('verbose', abbr: 'v', defaultsTo: false, help: 'Print more logs')
-  ..addFlag('help', abbr: 'h', defaultsTo: false, negatable: false)
-  ..addCommand('build', ArgParser());
+final _log = Logger();
 
-final toolBox = ToolBox(name: 'mek_assets');
-
-void main(List<String> rawArgs) async {
-  final args = argsParser.parse(rawArgs);
-  final settingsPath = args['settings'] as String?;
-  final canVerbose = args['verbose'] as bool;
-  final askHelp = args['help'] as bool;
-
-  if (args.command?.name != 'build' || askHelp) {
-    lg.stdout('Global options:');
-    lg.stdout(argsParser.usage);
-    lg.stdout('');
-    lg.stdout('Available commands:');
-    argsParser.commands.forEach((command, _) {
-      lg.stdout('  $command    Generate a assets dart class and flutter entries.');
-    });
-    exit(0);
+void main() async {
+  try {
+    await _main();
+  } on StateException catch (exception) {
+    _log.error(exception.message);
+    exit(-1);
   }
-  if (canVerbose) lg = Logger.verbose();
-
-  final settingsFile = toolBox.findYaml(settingsPath);
-  final yamlSettings = ToolBox.loadYaml(settingsFile, YamlSettings.fromJson);
-  final settings = yamlSettings.mekAssets;
-
-  await generateCode(settings);
 }
 
-class ToolBox {
-  final File projectYaml = File('pubspec.yaml');
-  final File packageYaml;
+Future<void> _main() async {
+  _log.verbose('Finding assets...');
 
-  ToolBox({required String name}) : packageYaml = File('$name.yaml');
+  final pubspec = decodeYamlFile(File('pubspec.yaml'), PubspecDto.fromJson);
 
-  File findYaml(String? path) {
-    if (path != null) return File(path);
+  final entities = await findEntities(pubspec.flutter.assets);
 
-    if (packageYaml.existsSync()) return packageYaml;
+  final libraries = buildLibraries(pubspec.mekAssets, entities);
 
-    return projectYaml;
-  }
+  _log.verbose('Found ${libraries.length} assets libraries: ${libraries.keys.join(', ')}');
 
-  static T loadYaml<T>(File file, T Function(Map map) from) {
-    if (!file.existsSync()) {
-      lg.e('Not find ${file.path} file in this project');
-      exit(-1);
-    }
-    try {
-      return checkedYamlDecode(
-        file.readAsStringSync(),
-        (map) => from(map!),
-        sourceUrl: Uri.file(file.path),
-      );
-    } on ParsedYamlException catch (error) {
-      lg.e(error.formattedMessage!);
-      exit(-1);
-    }
-  }
+  await writeLibraries(pubspec.mekAssets, libraries);
+
+  _log.info(
+      '> Written ${libraries.length} assets libraries to "${pubspec.mekAssets.outputDirectory}"!');
+}
+
+class Logger {
+  final _ansi = Ansi(Ansi.terminalSupportsAnsi);
+
+  void verbose(String message) => stdout.writeln(message);
+
+  void error(String message) => stderr.writeln(_ansi.error(message));
+
+  void info(String message) =>
+      stdout.writeln(_ansi.emphasized('${_ansi.green}$message${_ansi.none}'));
 }

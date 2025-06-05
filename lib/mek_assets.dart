@@ -1,9 +1,7 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library mek_generate_assets;
+library;
 
-export 'src/build_group/build_group_node.dart';
-export 'src/build_group/build_tree_group_node.dart';
-export 'src/generate_assets.dart';
-export 'src/settings/settings.dart';
+export 'src/build_libraries.dart';
+export 'src/data/dto.dart';
+export 'src/data/entity.dart';
+export 'src/find_entities.dart';
+export 'src/write_libraries.dart';
