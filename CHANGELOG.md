@@ -1,3 +1,6 @@
+## 2.0.0+1
+- docs: fixed example documentation
+
 ## 2.0.0
 - feat!: automatically generate Dart classes with resources based on Flutter `assets` property
 - build: require dart `3.5`

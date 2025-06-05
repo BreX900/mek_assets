@@ -33,9 +33,9 @@ Run `mek_assets` to generate the `Assets` and `Images` class
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 abstract final class Assets {
-  static const String assetsMainImageJpg = 'assets/main_image.jpg';
-  
-  static const String assetsResponseJson = 'assets/response.json';
+  static const String assetsMainImage = 'assets/main_image.jpg';
+
+  static const String assetsResponse = 'assets/response.json';
 }
 
 ```
@@ -50,7 +50,7 @@ abstract final class Images {
 
 ```
 
-## Advance and Package Usage
+## Advance Package Usage
 
 ```yaml
 mek_assets:
