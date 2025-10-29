@@ -1,5 +1,9 @@
 targets:
   $default:
+    sources:
+      exclude:
+        - example/**
+
     builders:
       source_gen:combining_builder:
         options:
@@ -29,6 +33,6 @@ builders:
   mek_assets:
     import: "package:mek_assets/mek_assets_builder.dart"
     builder_factories: ["mekAssetsBuilder"]
-    build_extensions: { 'pubspec.yaml': ['lib/assets.g.dart'] }
+    build_extensions: { '^pubspec.yaml': ['lib/assets.g.dart'] }
     build_to: source
     auto_apply: dependents

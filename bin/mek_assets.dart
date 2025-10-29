@@ -31,7 +31,7 @@ Future<void> _main() async {
   final generator = AssetsGenerator(fileSystem: fileSystem, pubspec: pubspec, config: config);
   await generator.generate();
 
-  _log.info('> Written assets libraries to "${config.outputDirectory}"!');
+  _log.info('> Written assets libraries to "${config.outputPath}"!');
 }
 
 class _IoFileSystem extends FileSystem {

@@ -20,6 +20,6 @@ mixin LibraryWriterHelper on HelperCore {
 
     final content = formatter.format('${library.accept(emitter)}');
 
-    await fileSystem.writeAsString(config.outputFile, content);
+    await fileSystem.writeAsString(config.outputPath, content);
   }
 }

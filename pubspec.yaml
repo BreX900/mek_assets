@@ -1,6 +1,6 @@
 name: mek_assets
 description: Automatically generate dart classes / flutter pubspec entries for your assets files.
-version: 3.0.0-dev.0
+version: 3.0.0-dev.3
 homepage: https://github.com/BreX900/mek_assets
 topics:
   - assets
@@ -28,16 +28,13 @@ dependencies:
   pub_semver: ^2.2.0
   json_annotation: ^4.9.0
 
-  build: ^4.0.0
+  build: '>=3.0.0 <5.0.0'
   glob: ^2.1.0
 
 dev_dependencies:
   mek_lints: ^4.0.0
 #  test: ^1.23.1
 
-  # To generate .g files:
-  # dart run build_runner build --delete-conflicting-outputs
-  # dart run build_runner watch --delete-conflicting-outputs
-  build_runner: ^2.10.1
+  build_runner: ^2.7.1
   json_serializable: ^6.8.0
 

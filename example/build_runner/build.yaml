@@ -4,7 +4,8 @@ targets:
       mek_assets:
         options:
           output_directory: lib/src
-          output_files_class: R
+          output_file: r.g.dart
+          single_assets_class: R
           assets:
             assets/images/: RandomImages
             assets/json/: false

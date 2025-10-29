@@ -22,7 +22,7 @@ class _AssetsBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-    'pubspec.yaml': [config.outputFile],
+    '^pubspec.yaml': [config.outputPath],
   };
 
   @override

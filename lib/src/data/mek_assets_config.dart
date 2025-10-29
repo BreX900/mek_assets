@@ -1,22 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as path_lib;
-import 'package:recase/recase.dart';
 
 part 'mek_assets_config.g.dart';
+
 @JsonSerializable(disallowUnrecognizedKeys: true)
 class MekAssetsConfig {
   final String outputDirectory;
+  final String outputFile;
   @JsonKey(fromJson: _fallbackClassFromJson)
-  final String? outputFilesClass;
+  final String? singleAssetsClass;
   final Map<String, MekAssetConfig> assets;
 
   const MekAssetsConfig({
     this.outputDirectory = 'lib',
-    this.outputFilesClass = 'Assets',
+    this.outputFile = 'assets.g.dart',
+    this.singleAssetsClass = 'Assets',
     this.assets = const {},
   });
 
-  String get outputFile => path_lib.join(outputDirectory, 'assets.g.dart');
+  String get outputPath => path_lib.join(outputDirectory, outputFile);
 
   factory MekAssetsConfig.fromJson(Map<dynamic, dynamic> map) => _$MekAssetsConfigFromJson(map);
 
@@ -25,15 +27,14 @@ class MekAssetsConfig {
 
 class MekAssetConfig {
   final bool generate;
-  final String? outputClass;
+  @JsonKey(name: 'class')
+  final String? class$;
 
-  String? get libraryName => outputClass?.snakeCase;
-
-  const MekAssetConfig({this.generate = true, this.outputClass});
+  const MekAssetConfig({this.generate = true, this.class$});
 
   factory MekAssetConfig.fromJson(Object? source) {
     if (source == null) return const MekAssetConfig();
     if (source is bool) return MekAssetConfig(generate: source);
-    return MekAssetConfig(outputClass: source as String);
+    return MekAssetConfig(class$: source as String);
   }
 }

@@ -30,11 +30,13 @@ In your `build.yaml` or `pubspec.yaml` file, you can configure the generator.
 
 ```yaml
 mek_assets:
-  # Directory where to save the generated files. Defaults `lib`
-  output_directory: lib/assets
+  # Directory where to save the generated files
+  output_directory: lib
+  # File name where to generate assets classes
+  output_file: assets.g.dart
   # Name of the main class that contains the single assets. Defaults is "Assets" name.
   # You can pass `false` to not create a class that contains the individual files.
-  output_files_class: Assets
+  single_assets_class: Assets
 
   assets:
     # Name of the class that contains the assets. Defaults is directory name.

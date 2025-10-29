@@ -19,7 +19,7 @@ mixin LibrariesBuilderHelper on HelperCore {
       switch (entity) {
         case DirectoryEntity():
           final class$ = _createClass(
-            assetConfig.outputClass ?? basename(entity.path).pascalCase,
+            assetConfig.class$ ?? basename(entity.path).pascalCase,
             entity.children,
             fieldRename: _FieldRename.basename,
           );
@@ -30,7 +30,7 @@ mixin LibrariesBuilderHelper on HelperCore {
       }
     }
 
-    final fallbackClassName = config.outputFilesClass;
+    final fallbackClassName = config.singleAssetsClass;
     if (fallbackClassName != null && singleAssets.isNotEmpty) {
       final class$ = _createClass(fallbackClassName, singleAssets, fieldRename: _FieldRename.path);
       classes.add(class$);
