@@ -1,3 +1,9 @@
+
+## 3.0.0-dev.0
+- feat: Added support for `build_runner`.
+- docs: Updated `README.md` with separate examples for script and `build_runner` usage.
+- feat!: The generator now produces a single file called `assets.g.dart`
+
 ## 2.0.0+1
 - docs: fixed example documentation
 

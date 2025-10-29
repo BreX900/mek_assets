@@ -1,0 +1,20 @@
+name: example_build_runner
+description: Automatically generate dart classes / flutter pubspec entries for your assets files.
+version: 0.0.1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+scripts:
+  build_runner:generate-code: dart run build_runner watch
+
+dev_dependencies:
+  build_runner: ^2.10.1
+  mek_assets: { path: ../.. }
+
+flutter:
+  assets:
+    - assets/images/
+    - assets/json/
+    - assets/svgs/
+    - assets/response.json

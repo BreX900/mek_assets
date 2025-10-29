@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      mek_assets:
+        options:
+          output_directory: lib/src
+          output_files_class: R
+          assets:
+            assets/images/: RandomImages
+            assets/json/: false

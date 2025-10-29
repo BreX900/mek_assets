@@ -24,3 +24,11 @@ targets:
           generic_argument_factories: false
           ignore_unannotated: false
           include_if_null: false
+
+builders:
+  mek_assets:
+    import: "package:mek_assets/mek_assets_builder.dart"
+    builder_factories: ["mekAssetsBuilder"]
+    build_extensions: { 'pubspec.yaml': ['lib/assets.g.dart'] }
+    build_to: source
+    auto_apply: dependents

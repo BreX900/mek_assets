@@ -3,54 +3,30 @@ Automatically generate dart classes from pubspec.yaml `assets` field entries.
 
 ## Usage
 
-1. Activate: `dart/flutter pub global activate mek_assets`
+This package can be used as a script or with `build_runner`.
 
-2. You can generate libraries files with: `<dart|flutter> pub global run mek_assets`
+### Script
 
-### Example
+1.  Activate: `dart pub global activate mek_assets`
+2.  Generate files with: `dart pub global run mek_assets`
 
-See [minimal example](https://github.com/BreX900/mek_assets/tree/master/example/default/pubspec.yaml)
+See [script example](https://github.com/BreX900/mek_assets/tree/master/example/default/pubspec.yaml)
 
-The [pubspec.yaml](https://github.com/BreX900/mek_assets/tree/master/example/default/pubspec.yaml) file
-```yaml
-name: example
-description: Automatically generate dart classes / flutter pubspec entries for your assets files.
-version: 0.0.1
-environment:
-  sdk: '>=3.5.0 <4.0.0'
+### Build Runner
 
-flutter:
-  assets:
-    - assets/images/
-    - assets/main_image.jpg
-    - assets/response.json
-```
+1.  Add `build_runner` and `mek_assets` to your `pubspec.yaml` `dev_dependencies`:
+    ```yaml
+    dev_dependencies:
+      build_runner:
+      mek_assets:
+    ```
+2.  Generate files with: `dart run build_runner build`
 
-Run `mek_assets` to generate the `Assets` and `Images` class
-
-[lib/assets.dart](https://github.com/BreX900/mek_assets/tree/master/example/default/lib/assets.dart)
-```dart
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-abstract final class Assets {
-  static const String assetsMainImage = 'assets/main_image.jpg';
-
-  static const String assetsResponse = 'assets/response.json';
-}
-
-```
-
-[lib/images.dart](https://github.com/BreX900/mek_assets/tree/master/example/default/lib/images.dart)
-```dart
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-abstract final class Images {
-  static const String shieldHero = 'assets/images/shield_hero.jpg';
-}
-
-```
+See [build_runner example](https://github.com/BreX900/mek_assets/tree/master/example/build_runner/pubspec.yaml) and the [build.yaml](https://github.com/BreX900/mek_assets/tree/master/example/build_runner/build.yaml) configuration.
 
 ## Advance Package Usage
+
+In your `build.yaml` or `pubspec.yaml` file, you can configure the generator.
 
 ```yaml
 mek_assets:
