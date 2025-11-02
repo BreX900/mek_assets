@@ -4,7 +4,7 @@ import 'package:mek_assets/src/helpers/library_builder_helper.dart';
 import 'package:mek_assets/src/helpers/library_writer_helper.dart';
 
 class AssetsGenerator extends HelperCore
-    with LibrariesBuilderHelper, LibraryWriterHelper, EntitiesFinderHelper {
+    with LibraryBuilderHelper, LibraryWriterHelper, EntitiesFinderHelper {
   const AssetsGenerator({required super.fileSystem, required super.pubspec, required super.config});
 
   Future<void> generate() async {

@@ -13,9 +13,7 @@ AnalysisOptions _$AnalysisOptionsFromJson(Map json) =>
       final val = AnalysisOptions(
         formatter: $checkedConvert(
           'formatter',
-          (v) => v == null
-              ? const FormatterOptions()
-              : FormatterOptions.fromJson(v as Map),
+          (v) => v == null ? const FormatterOptions() : FormatterOptions.fromJson(v as Map),
         ),
       );
       return val;
@@ -24,10 +22,7 @@ AnalysisOptions _$AnalysisOptionsFromJson(Map json) =>
 FormatterOptions _$FormatterOptionsFromJson(Map json) =>
     $checkedCreate('FormatterOptions', json, ($checkedConvert) {
       final val = FormatterOptions(
-        pageWidth: $checkedConvert(
-          'page_width',
-          (v) => (v as num?)?.toInt() ?? 80,
-        ),
+        pageWidth: $checkedConvert('page_width', (v) => (v as num?)?.toInt() ?? 80),
       );
       return val;
     }, fieldKeyMap: const {'pageWidth': 'page_width'});

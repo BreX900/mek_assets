@@ -8,6 +8,10 @@ import 'package:mek_assets/src/data/pubspec.dart';
 import 'package:mek_assets/src/decode_yaml_file.dart';
 import 'package:mek_assets/src/helpers/helper_core.dart';
 
+/// Supports `package:build_runner` creation and configuration of
+/// `json_serializable`.
+///
+/// Not meant to be invoked by hand-authored code.
 // https://github.com/dart-lang/build/blob/build_runner-v2.6.0/docs/writing_a_builder.md
 Builder mekAssetsBuilder(BuilderOptions options) {
   final config = MekAssetsConfig.fromJson(options.config);

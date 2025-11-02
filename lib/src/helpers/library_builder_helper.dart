@@ -6,8 +6,7 @@ import 'package:mek_assets/src/helpers/helper_core.dart';
 import 'package:path/path.dart';
 import 'package:recase/recase.dart';
 
-mixin LibrariesBuilderHelper on HelperCore {
-  /// Returns Library<name, code>
+mixin LibraryBuilderHelper on HelperCore {
   Library buildLibrary(List<SystemEntity> entities) {
     final classes = <Class>[];
     final singleAssets = <String>[];
