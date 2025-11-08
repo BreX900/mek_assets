@@ -1,6 +1,6 @@
 name: mek_assets
 description: Automatically generate dart classes / flutter pubspec entries for your assets files.
-version: 3.0.0-dev.4
+version: 3.0.0-dev.5
 homepage: https://github.com/BreX900/mek_assets
 topics:
   - assets

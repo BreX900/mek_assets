@@ -13,5 +13,5 @@ abstract final class Svgs {
 }
 
 abstract final class R {
-  static const String assetsResponse = 'assets/response.json';
+  static const String assetsMainImage = 'assets/main_image.jpg';
 }

@@ -17,4 +17,4 @@ flutter:
     - assets/images/
     - assets/json/
     - assets/svgs/
-    - assets/response.json
+    - assets/main_image.jpg

@@ -1,4 +1,8 @@
 
+## 3.0.0-dev.5
+- fix: check can read directory assets, if builder cant read the asset, it is excluded
+- fix: if the single asset does not exist, an error will be thrown
+
 ## 3.0.0-dev.4
 - feat: Added support for `build_runner`.
 - docs: Updated `README.md` with separate examples for script and `build_runner` usage.

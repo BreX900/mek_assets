@@ -7,6 +7,7 @@ import 'package:mek_assets/src/data/mek_assets_config.dart';
 import 'package:mek_assets/src/data/pubspec.dart';
 import 'package:mek_assets/src/decode_yaml_file.dart';
 import 'package:mek_assets/src/helpers/helper_core.dart';
+import 'package:mek_assets/src/utils.dart';
 
 /// Supports `package:build_runner` creation and configuration of
 /// `json_serializable`.
@@ -60,7 +61,11 @@ class _BuildFileSystem extends FileSystem {
   @override
   Future<List<String>> findAssets(String path) async {
     final assets = await buildStep.findAssets(Glob('$path*')).toList();
-    return assets.map((e) => e.path).toList();
+    final readableAssets = await assets.map((asset) async {
+      if (!await buildStep.canRead(asset)) return null;
+      return asset.path;
+    }).waitOrThrowFirst;
+    return readableAssets.nonNulls.toList();
   }
 
   @override
