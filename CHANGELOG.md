@@ -1,4 +1,7 @@
 
+## 3.0.0
+- build: released stable version
+
 ## 3.0.0-dev.5
 - fix: check can read directory assets, if builder cant read the asset, it is excluded
 - fix: if the single asset does not exist, an error will be thrown
