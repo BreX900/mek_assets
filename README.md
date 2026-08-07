@@ -26,7 +26,7 @@ See [build_runner example](https://github.com/BreX900/mek_assets/tree/master/exa
 
 ## Advance Package Usage
 
-In your `build.yaml` or `pubspec.yaml` file, you can configure the generator.
+In your `build.yaml` if you are using build_runner or `pubspec.yaml` file is you are using CLI, you can configure the code generation.
 
 ```yaml
 mek_assets:
@@ -44,6 +44,17 @@ mek_assets:
     # You can disable generation with `false` value
     <ASSET_PATH_IGNORED>: false
 ```
+
+### For packages
+
+In your `build.yaml` if you are using build_runner or `pubspec.yaml` file is you are using CLI, you can configure the code generation.
+
+```yaml
+mek_assets:
+  # Set this value to `true` for packages so that the generator adds the package identifier to the asset path
+  is_package: false
+```
+
 
 ## Features and bugs
 

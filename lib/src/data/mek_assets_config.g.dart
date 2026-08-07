@@ -14,9 +14,16 @@ MekAssetsConfig _$MekAssetsConfigFromJson(Map json) => $checkedCreate(
   ($checkedConvert) {
     $checkKeys(
       json,
-      allowedKeys: const ['output_directory', 'output_file', 'single_assets_class', 'assets'],
+      allowedKeys: const [
+        'is_package',
+        'output_directory',
+        'output_file',
+        'single_assets_class',
+        'assets',
+      ],
     );
     final val = MekAssetsConfig(
+      isPackage: $checkedConvert('is_package', (v) => v as bool? ?? false),
       outputDirectory: $checkedConvert('output_directory', (v) => v as String? ?? 'lib'),
       outputFile: $checkedConvert('output_file', (v) => v as String? ?? 'assets.g.dart'),
       singleAssetsClass: $checkedConvert(
@@ -33,6 +40,7 @@ MekAssetsConfig _$MekAssetsConfigFromJson(Map json) => $checkedCreate(
     return val;
   },
   fieldKeyMap: const {
+    'isPackage': 'is_package',
     'outputDirectory': 'output_directory',
     'outputFile': 'output_file',
     'singleAssetsClass': 'single_assets_class',

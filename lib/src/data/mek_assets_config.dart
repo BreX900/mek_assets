@@ -5,6 +5,7 @@ part 'mek_assets_config.g.dart';
 
 @JsonSerializable(disallowUnrecognizedKeys: true)
 class MekAssetsConfig {
+  final bool isPackage;
   final String outputDirectory;
   final String outputFile;
   @JsonKey(fromJson: _fallbackClassFromJson)
@@ -12,6 +13,7 @@ class MekAssetsConfig {
   final Map<String, MekAssetConfig> assets;
 
   const MekAssetsConfig({
+    this.isPackage = false,
     this.outputDirectory = 'lib',
     this.outputFile = 'assets.g.dart',
     this.singleAssetsClass = 'Assets',

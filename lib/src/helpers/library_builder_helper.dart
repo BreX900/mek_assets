@@ -60,6 +60,7 @@ mixin LibraryBuilderHelper on HelperCore {
         ..fields.addAll(
           paths
               .map((path) {
+                final effectivePath = config.isPackage ? 'packages/mobile_core/$path' : path;
                 return Field(
                   (b) => b
                     ..static = true
@@ -69,7 +70,7 @@ mixin LibraryBuilderHelper on HelperCore {
                       _FieldRename.path => split(withoutExtension(path)).join('_').camelCase,
                       _FieldRename.basename => basenameWithoutExtension(path).camelCase,
                     }
-                    ..assignment = literalString(path).code,
+                    ..assignment = literalString(effectivePath).code,
                 );
               })
               .sortedBy((field) {

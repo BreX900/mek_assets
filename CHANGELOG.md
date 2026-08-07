@@ -1,4 +1,7 @@
 
+## 3.1.0
+- feat: added `package` option for package code generation (append package name to path)
+
 ## 3.0.0
 - build: released stable version
 
