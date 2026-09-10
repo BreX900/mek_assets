@@ -31,7 +31,7 @@ class _AssetsBuilder implements Builder {
   };
 
   @override
-  FutureOr<void> build(BuildStep buildStep) async {
+  Future<void> build(BuildStep buildStep) async {
     final fileSystem = _BuildFileSystem(buildStep);
 
     final pubspec = await fileSystem.readAsYaml('pubspec.yaml', Pubspec.fromJson);

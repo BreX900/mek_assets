@@ -2,26 +2,23 @@
 
 import 'dart:io';
 
-import 'package:cli_util/cli_logging.dart' show Ansi;
 import 'package:mek_assets/src/assets_generator.dart';
 import 'package:mek_assets/src/data/mek_assets_config.dart';
 import 'package:mek_assets/src/data/pubspec.dart';
 import 'package:mek_assets/src/decode_yaml_file.dart';
 import 'package:mek_assets/src/helpers/helper_core.dart';
 
-final _log = _Logger();
-
 void main() async {
   try {
     await _main();
   } on StateException catch (exception) {
-    _log.error(exception.message);
+    stderr.writeln(exception.message);
     exit(-1);
   }
 }
 
 Future<void> _main() async {
-  _log.verbose('Finding assets...');
+  print('Finding assets...');
 
   final fileSystem = _IoFileSystem();
 
@@ -31,7 +28,7 @@ Future<void> _main() async {
   final generator = AssetsGenerator(fileSystem: fileSystem, pubspec: pubspec, config: config);
   await generator.generate();
 
-  _log.info('> Written assets library to "${config.outputPath}"!');
+  print('> Written assets library to "${config.outputPath}"!');
 }
 
 class _IoFileSystem extends FileSystem {
@@ -52,15 +49,4 @@ class _IoFileSystem extends FileSystem {
   Future<void> writeAsString(String path, String contents) async {
     await File(path).writeAsString(contents);
   }
-}
-
-class _Logger {
-  final _ansi = Ansi(Ansi.terminalSupportsAnsi);
-
-  void verbose(String message) => stdout.writeln(message);
-
-  void error(String message) => stderr.writeln(_ansi.error(message));
-
-  void info(String message) =>
-      stdout.writeln(_ansi.emphasized('${_ansi.green}$message${_ansi.none}'));
 }

@@ -1,4 +1,8 @@
 
+## 3.1.1
+- chore: removed `cli_util` dependency
+
+
 ## 3.1.0
 - feat: added `package` option for package code generation (append package name to path)
 
